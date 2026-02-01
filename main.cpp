@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <vector>
 #include <bits/stdc++.h>
@@ -114,17 +115,73 @@ void ReadInputData(std::string fileSource)
     }
 }
 
-void ExportOutputData(std::string fileTarget)
+void WriteOutputData(std::string fileTarget)
 {
+    std::ofstream target(fileTarget);
+    int dimension = hospitalVec.size();
 
+    // Write the dimension
+    std::string rowString = "";
+    rowString += std::to_string(dimension);
+
+    rowString += '\n';
+    target << rowString;
+    std::cout << rowString;
+
+    // Write the data for hospital
+    for (int i = 0; i < dimension; i++)
+    {
+        rowString = "";
+
+        bool isFirst = true;
+        for (int j = 0; j < dimension; j++)
+        {
+            if (!isFirst) { rowString += " "; }
+            else { isFirst = false; }
+            rowString += std::to_string(hospitalVec[i][j]);
+            //std::cout << "i: " << i << ", j: " << j << ", " << hospitalVec[i][j] << std::endl;
+        }
+        rowString += '\n';
+
+        target << rowString;
+        std::cout << rowString;
+    }
+
+    // Write the data for student
+    for (int i = 0; i < dimension; i++)
+    {
+        rowString = "";
+
+        bool isFirst = true;
+        for (int j = 0; j < dimension; j++)
+        {
+            if (!isFirst) { rowString += " "; }
+            else { isFirst = false; }
+            rowString += std::to_string(studentVec[i][j]);
+        }
+        rowString += '\n';
+
+        target << rowString;
+        std::cout << rowString;
+    }
+
+    target.close();
 }
 
 
 int main()
 {
-    std::cout << "Hello, World!" << std::endl;
+    // Test
+    //std::cout << "Hello, World!" << std::endl;
 
+    // Read Data
     ReadInputData("example.in");
+
+    // Perform Gale-Shapley
+
+
+    // Output Data
+    WriteOutputData("example.out");
 
     return 0;
 }
