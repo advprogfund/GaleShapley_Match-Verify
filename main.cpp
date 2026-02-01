@@ -124,7 +124,7 @@ void WriteOutputData(std::string fileTarget)
     std::string rowString = "";
     rowString += std::to_string(dimension);
 
-    rowString += '\n';
+    //rowString += '\n';
     target << rowString;
     std::cout << rowString;
 
@@ -132,6 +132,7 @@ void WriteOutputData(std::string fileTarget)
     for (int i = 0; i < dimension; i++)
     {
         rowString = "";
+        rowString += '\n';
 
         bool isFirst = true;
         for (int j = 0; j < dimension; j++)
@@ -141,7 +142,7 @@ void WriteOutputData(std::string fileTarget)
             rowString += std::to_string(hospitalVec[i][j]);
             //std::cout << "i: " << i << ", j: " << j << ", " << hospitalVec[i][j] << std::endl;
         }
-        rowString += '\n';
+        //rowString += '\n';
 
         target << rowString;
         std::cout << rowString;
@@ -151,6 +152,7 @@ void WriteOutputData(std::string fileTarget)
     for (int i = 0; i < dimension; i++)
     {
         rowString = "";
+        rowString += '\n';
 
         bool isFirst = true;
         for (int j = 0; j < dimension; j++)
@@ -159,7 +161,7 @@ void WriteOutputData(std::string fileTarget)
             else { isFirst = false; }
             rowString += std::to_string(studentVec[i][j]);
         }
-        rowString += '\n';
+        //rowString += '\n';
 
         target << rowString;
         std::cout << rowString;
