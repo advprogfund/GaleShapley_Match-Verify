@@ -3,8 +3,8 @@
 #include <vector>
 #include <bits/stdc++.h>
 
-std::vector<std::vector<int>> hospitals;
-std::vector<std::vector<int>> students;
+std::vector<std::vector<int>> hospitalVec;
+std::vector<std::vector<int>> studentVec;
 
 // PSUEDOCODE BASED ON CHAPTER-1-2026.pptx SLIDES FROM CLASS FILES SECTION
 // Pass a student in and determine which hospital should take them based on the algorithm.
@@ -52,6 +52,7 @@ void ReadInputData(std::string fileSource)
         int dimension = -1;
         bool isFirst = true;
         int lineCounter = 0;
+        bool hospitalStudentSwitch = false; // false - hospital ; true - student
 
         // Parse the data line-by-line, using the formatting specified in the description
         while (getline(source, currLine))
@@ -70,12 +71,42 @@ void ReadInputData(std::string fileSource)
                 // The line represents either data for hospitals or students; hospitals come first, followed by students
                 // Citation: https://stackoverflow.com/questions/216068/parsing-integers-from-a-line
                 std::stringstream ss(currLine);
-                int int1, int2;
-                ss >> int1 >> int2;
-                std::cout << "Stream: " << int1 << " " << int2 << std::endl;
+
+                std::vector<int> rowToAdd;
+
+                for (int i = 0; i < dimension; i++)
+                {
+                    int val;
+                    ss >> val;
+
+                    std::cout << "Stream: " << val << std::endl;
+                    rowToAdd.push_back(val);
+                }
+
+                // Citation for emplacing values into 2D Vector: https://www.geeksforgeeks.org/cpp/how-to-insert-elements-into-2d-vector-in-cpp/
+                if (hospitalStudentSwitch == false)
+                {
+                    std::cout << "false" << std::endl;
+                    //hospitalVec[lineCounter].push_back(rowToAdd);
+                    hospitalVec.emplace(hospitalVec.begin() + lineCounter, rowToAdd);
+                }
+                else if (hospitalStudentSwitch == true)
+                {
+                    std::cout << "true" << std::endl;
+                    //studentVec[lineCounter].push_back(rowToAdd);
+                    studentVec.emplace(studentVec.begin() + lineCounter, rowToAdd);
+                }
+                else
+                {
+                    std::cout << "???" << std::endl;
+                }
+
+                //int int1, int2, int3;
+                //ss >> int1 >> int2;
+                //std::cout << "Stream: " << int1 << " " << int2 << std::endl;
 
                 lineCounter++;
-                if (lineCounter >= dimension) { lineCounter = 0; };
+                if (lineCounter >= dimension) { lineCounter = 0; hospitalStudentSwitch = true; };
             }
         }
 
